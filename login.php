@@ -191,17 +191,17 @@ echo htmlentities($_SESSION['errmsg']="");
 	    	       <span id="user-availability-status1" style="font-size:12px;"></span>
 	  	</div>
 
-<div class="form-group">
+	<div class="form-group">
 	    	<label class="info-title" for="contactno">Contact No. <span>*</span></label>
 	    	<input type="text" class="form-control unicase-form-control text-input" id="contactno" name="contactno" maxlength="10" required >
 	  	</div>
 
-<div class="form-group">
+	<div class="form-group">
 	    	<label class="info-title" for="password">Password. <span>*</span></label>
 	    	<input type="password" class="form-control unicase-form-control text-input" id="password" name="password"  required >
 	  	</div>
 
-<div class="form-group">
+	<div class="form-group">
 	    	<label class="info-title" for="confirmpassword">Confirm Password. <span>*</span></label>
 	    	<input type="password" class="form-control unicase-form-control text-input" id="confirmpassword" name="confirmpassword" required >
 	  	</div>
