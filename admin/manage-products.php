@@ -2,18 +2,18 @@
 <?php
 session_start();
 include('include/config.php');
-if(strlen($_SESSION['alogin'])==0)
+if(!isset($_GET['uname']))
 	{	
 header('location:index.php');
 }
 else{
-date_default_timezone_set('Asia/Kolkata');// change according timezone
+date_default_timezone_set('Europe/Malta');// change according timezone
 $currentTime = date( 'd-m-Y h:i:s A', time () );
 
 if(isset($_GET['del']))
 		  {
 		          mysqli_query($con,"delete from products where id = '".$_GET['id']."'");
-                  $_SESSION['delmsg']="Product deleted !!";
+                  $_SESSION['delmsg']="Produit supprimé !!";
 		  }
 
 ?>
@@ -22,7 +22,7 @@ if(isset($_GET['del']))
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin| Manage Products</title>
+	<title>Admin| Gérer les produits</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -41,7 +41,7 @@ if(isset($_GET['del']))
 
 	<div class="module">
 							<div class="module-head">
-								<h3>Manage Products</h3>
+								<h3>Gérer les produits</h3>
 							</div>
 							<div class="module-body table">
 	<?php if(isset($_GET['del']))
@@ -59,11 +59,10 @@ if(isset($_GET['del']))
 									<thead>
 										<tr>
 											<th>#</th>
-											<th>Product Name</th>
-											<th>Category </th>
-											<th>Subcategory</th>
-											<th>Company Name</th>
-											<th>Product Creation Date</th>
+											<th>Nom du produit</th>
+											<th>Catégorie </th>
+											<th>Sous-catégorie</th>
+											<th>Date de création du produit</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -79,11 +78,11 @@ while($row=mysqli_fetch_array($query))
 											<td><?php echo htmlentities($row['productName']);?></td>
 											<td><?php echo htmlentities($row['categoryName']);?></td>
 											<td> <?php echo htmlentities($row['subcategory']);?></td>
-											<td><?php echo htmlentities($row['productCompany']);?></td>
 											<td><?php echo htmlentities($row['postingDate']);?></td>
 											<td>
-											<a href="edit-products.php?id=<?php echo $row['id']?>" ><i class="icon-edit"></i></a>
-											<a href="manage-products.php?id=<?php echo $row['id']?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign"></i></a></td>
+											<a href="edit-products.php?uname=<?php echo $uname; ?>&id=<?php echo $row['id']?>" ><i class="icon-edit"></i></a>
+											<a href="manage-products.php?uname=<?php echo $uname; ?>&id=<?php echo $row['id']?>&del=delete" onClick="return confirm('\n'+'Etes-vous sûr que vous voulez supprimer?')"><i class="icon-remove-sign"></i></a>
+                                            </td>
 										</tr>
 										<?php $cnt=$cnt+1; } ?>
 										

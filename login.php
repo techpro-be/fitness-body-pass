@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/config.php');
+include_once('includes/config.php');
 // Code user Registration
 if(isset($_POST['submit']))
 {
@@ -9,14 +9,25 @@ $name=$_POST['fullname'];
 $email=$_POST['emailid'];
 $contactno=$_POST['contactno'];
 $password=md5($_POST['password']);
-$query=mysqli_query($con,"insert into users(name,email,contactno,password) values('$name','$email','$contactno','$password')");
+    $con = mysqli_connect("db5000245141.hosting-data.io","dbu402929","EFFitbodyp@S123!@#","dbs239431");
+    $query=mysqli_query($con,"insert into users(name,email,contactno,password) values('$name','$email','$contactno','$password')");
 if($query)
 {
-	echo "<script>alert('You are successfully register');</script>";
+	echo "<script>alert('Vous êtes enregistré avec succès');</script>";
+	
 }
 else{
-echo "<script>alert('Not register something went worng');</script>";
+echo "<script>alert('Quelque chose a mal tourné. Veuillez réessayer');</script>";
 }
+
+$extra="payment-method.php";
+$_SESSION['login']=$email;
+$_SESSION['id']=$num['id'];
+$_SESSION['username']=$num['name'];
+$host=$_SERVER['HTTP_HOST'];
+$uri=rtrim(dirname($_SERVER['PHP_SELF']),'/\\');
+header("location:http://$host$uri/$extra");
+echo "<script>window.location.href = 'http://$host$uri/$extra';</script>";
 }
 // Code for User login
 if(isset($_POST['login']))
@@ -24,20 +35,21 @@ if(isset($_POST['login']))
    $email=$_POST['email'];
    $password=md5($_POST['password']);
 $query=mysqli_query($con,"SELECT * FROM users WHERE email='$email' and password='$password'");
+$login_num = mysqli_num_rows($query);
 $num=mysqli_fetch_array($query);
-if($num>0)
+if($login_num>0)
 {
-$extra="index.php";
-$_SESSION['login']=$_POST['email'];
+$extra="payment-method.php";
+$_SESSION['login']=$email;
 $_SESSION['id']=$num['id'];
 $_SESSION['username']=$num['name'];
 $uip=$_SERVER['REMOTE_ADDR'];
 $status=1;
-$log=mysqli_query($con,"insert into userlog(userEmail,userip,status) values('".$_SESSION['login']."','$uip','$status')");
+$log=mysqli_query($con,"insert into userlog(userEmail,userip,status) values('".$email."','$uip','$status')");
 $host=$_SERVER['HTTP_HOST'];
 $uri=rtrim(dirname($_SERVER['PHP_SELF']),'/\\');
 header("location:http://$host$uri/$extra");
-exit();
+echo "<script>window.location.href = 'http://$host$uri/$extra';</script>";
 }
 else
 {
@@ -49,11 +61,9 @@ $log=mysqli_query($con,"insert into userlog(userEmail,userip,status) values('$em
 $host  = $_SERVER['HTTP_HOST'];
 $uri  = rtrim(dirname($_SERVER['PHP_SELF']),'/\\');
 header("location:http://$host$uri/$extra");
-$_SESSION['errmsg']="Invalid email id or Password";
-exit();
+$_SESSION['errmsg']="Identifiant e-mail ou mot de passe invalide";
 }
 }
-
 
 ?>
 
@@ -70,7 +80,7 @@ exit();
 	    <meta name="keywords" content="MediaCenter, Template, eCommerce">
 	    <meta name="robots" content="all">
 
-	    <title>Fitness Club | Sign-in | Signup</title>
+	    <title>FitBody Pass | Se connecter | S'inscrire</title>
 
 	    <!-- Bootstrap Core CSS -->
 	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -100,7 +110,7 @@ function valid()
 {
  if(document.register.password.value!= document.register.confirmpassword.value)
 {
-alert("Password and Confirm Password Field do not match  !!");
+alert("\n" + "Le mot de passe et le champ de confirmation du mot de passe ne correspondent pas  !!");
 document.register.confirmpassword.focus();
 return false;
 }
@@ -134,8 +144,8 @@ error:function (){}
 	<div class="container">
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
-				<li><a href="index.php">Home</a></li>
-				<li class='active'>Authentication</li>
+				<li><a href="index.php">Accueil</a></li>
+				<li class='active'>Authentification</li>
 			</ul>
 		</div><!-- /.breadcrumb-inner -->
 	</div><!-- /.container -->
@@ -147,8 +157,8 @@ error:function (){}
 			<div class="row">
 				<!-- Sign-in -->			
 <div class="col-md-6 col-sm-6 sign-in">
-	<h4 class="">sign in</h4>
-	<p class="">Hello, Welcome to your account.</p>
+	<h4 class="">se connecter</h4>
+	<p class="">Bonjour, Bienvenue sur votre compte.</p>
 	<form class="register-form outer-top-xs" method="post">
 	<span style="color:red;" >
 <?php
@@ -157,57 +167,66 @@ echo htmlentities($_SESSION['errmsg']);
 <?php
 echo htmlentities($_SESSION['errmsg']="");
 ?>
+
+        <?php var_dump($_GET['id']);
+        $pid=$_GET['id'];
+
+        echo $pid ?>
 	</span>
 		<div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
+		    <label class="info-title" for="exampleInputEmail1">Adresse e-mail <span>*</span></label>
 		    <input type="email" name="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" >
+		    <input type="hidden" name="productid" value="<?php echo $_GET['id']?>" class="form-control unicase-form-control text-input" id="productid" >
 		</div>
+
+        <?php echo $_GET['id']?>
 	  	<div class="form-group">
-		    <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
+		    <label class="info-title" for="exampleInputPassword1">Mot de passe<span>*</span></label>
 		 <input type="password" name="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" >
 		</div>
 		<div class="radio outer-xs">
-		  	<a href="forgot-password.php" class="forgot-password pull-right">Forgot your Password?</a>
+		  	<a href="forgot-password.php" class="forgot-password pull-right">Mot de passe oublié?</a>
 		</div>
-	  	<button type="submit" class="btn-upper btn btn-primary checkout-page-button" name="login">Login</button>
+	  	<button type="submit" class="btn-upper btn btn-primary checkout-page-button" name="login">S'identifier
+        </button>
 	</form>					
 </div>
 <!-- Sign-in -->
 
 <!-- create a new account -->
 <div class="col-md-6 col-sm-6 create-new-account">
-	<h4 class="checkout-subtitle">create a new account</h4>
-	<p class="text title-tag-line">Create your own Fitness account.</p>
+	<h4 class="checkout-subtitle">créer un nouveau compte</h4>
+	<p class="text title-tag-line">Créez votre propre compte Fitness.</p>
 	<form class="register-form outer-top-xs" role="form" method="post" name="register" onSubmit="return valid();">
 <div class="form-group">
-	    	<label class="info-title" for="fullname">Full Name <span>*</span></label>
+	    	<label class="info-title" for="fullname">Nom complet <span>*</span></label>
 	    	<input type="text" class="form-control unicase-form-control text-input" id="fullname" name="fullname" required="required">
 	  	</div>
 
 
 		<div class="form-group">
-	    	<label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
+	    	<label class="info-title" for="exampleInputEmail2">Adresse e-mail <span>*</span></label>
 	    	<input type="email" class="form-control unicase-form-control text-input" id="email" onBlur="userAvailability()" name="emailid" required >
 	    	       <span id="user-availability-status1" style="font-size:12px;"></span>
 	  	</div>
 
 	<div class="form-group">
-	    	<label class="info-title" for="contactno">Contact No. <span>*</span></label>
+	    	<label class="info-title" for="contactno">Numéro de contact <span>*</span></label>
 	    	<input type="text" class="form-control unicase-form-control text-input" id="contactno" name="contactno" maxlength="10" required >
 	  	</div>
 
 	<div class="form-group">
-	    	<label class="info-title" for="password">Password. <span>*</span></label>
+	    	<label class="info-title" for="password">Mot de passe. <span>*</span></label>
 	    	<input type="password" class="form-control unicase-form-control text-input" id="password" name="password"  required >
 	  	</div>
 
 	<div class="form-group">
-	    	<label class="info-title" for="confirmpassword">Confirm Password. <span>*</span></label>
+	    	<label class="info-title" for="confirmpassword">Confirmez le mot de passe. <span>*</span></label>
 	    	<input type="password" class="form-control unicase-form-control text-input" id="confirmpassword" name="confirmpassword" required >
 	  	</div>
 
 
-	  	<button type="submit" name="submit" class="btn-upper btn btn-primary checkout-page-button" id="submit">Sign Up</button>
+	  	<button type="submit" name="submit" class="btn-upper btn btn-primary checkout-page-button" id="submit">S'inscrire</button>
 	</form>
 	
 	

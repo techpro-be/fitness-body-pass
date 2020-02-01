@@ -14,7 +14,7 @@ else{
 		$query=mysqli_query($con,"update users set name='$name',contactno='$contactno' where id='".$_SESSION['id']."'");
 		if($query)
 		{
-echo "<script>alert('Your info has been updated');</script>";
+echo "<script>alert('Vos informations ont été mises à jour');</script>";
 		}
 	}
 
@@ -30,11 +30,11 @@ $num=mysqli_fetch_array($sql);
 if($num>0)
 {
  $con=mysqli_query($con,"update students set password='".md5($_POST['newpass'])."', updationDate='$currentTime' where id='".$_SESSION['id']."'");
-echo "<script>alert('Password Changed Successfully !!');</script>";
+echo "<script>alert('Le mot de passe a été changé avec succès !!');</script>";
 }
 else
 {
-	echo "<script>alert('Current Password not match !!');</script>";
+	echo "<script>alert('Le mot de passe actuel ne correspond pas !!');</script>";
 }
 }
 
@@ -51,7 +51,7 @@ else
 	    <meta name="keywords" content="MediaCenter, Template, eCommerce">
 	    <meta name="robots" content="all">
 
-	    <title>My Account</title>
+	    <title>Mon compte</title>
 
 	    <!-- Bootstrap Core CSS -->
 	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -111,24 +111,13 @@ return true;
 
 	</head>
     <body class="cnt-home">
-<header class="header-style-1">
 
-	<!-- ============================================== TOP MENU ============================================== -->
-<?php include('includes/top-header.php');?>
-<!-- ============================================== TOP MENU : END ============================================== -->
-<?php include('includes/main-header.php');?>
-	<!-- ============================================== NAVBAR ============================================== -->
-<?php include('includes/menu-bar.php');?>
-<!-- ============================================== NAVBAR : END ============================================== -->
-
-</header>
-<!-- ============================================== HEADER : END ============================================== -->
 <div class="breadcrumb">
 	<div class="container">
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
-				<li><a href="#">Home</a></li>
-				<li class='active'>Checkout</li>
+				<li><a href="index.php">Accueil</a></li>
+				<li class='active'>Check-out</li>
 			</ul>
 		</div><!-- /.breadcrumb-inner -->
 	</div><!-- /.container -->
@@ -147,8 +136,8 @@ return true;
 		<div class="panel-heading">
     	<h4 class="unicase-checkout-title">
 	        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
-	          <span>1</span>My Profile
-	        </a>
+	          <span>1</span>Mon profil
+            </a>
 	     </h4>
     </div>
     <!-- panel-heading -->
@@ -158,7 +147,8 @@ return true;
 		<!-- panel-body  -->
 	    <div class="panel-body">
 			<div class="row">		
-<h4>Personal info</h4>
+<h4>
+    Informations personnelles</h4>
 				<div class="col-md-12 col-sm-12 already-registered-login">
 
 <?php
@@ -169,21 +159,21 @@ while($row=mysqli_fetch_array($query))
 
 					<form class="register-form" role="form" method="post">
 <div class="form-group">
-					    <label class="info-title" for="name">Name<span>*</span></label>
+					    <label class="info-title" for="name">Nom<span>*</span></label>
 					    <input type="text" class="form-control unicase-form-control text-input" value="<?php echo $row['name'];?>" id="name" name="name" required="required">
 					  </div>
 
 
 
 						<div class="form-group">
-					    <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
+					    <label class="info-title" for="exampleInputEmail1">Adresse e-mail<span>*</span></label>
 			 <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" value="<?php echo $row['email'];?>" readonly>
 					  </div>
 					  <div class="form-group">
-					    <label class="info-title" for="Contact No.">Contact No. <span>*</span></label>
+					    <label class="info-title" for="Contact No.">Numéro de contact<span>*</span></label>
 					    <input type="text" class="form-control unicase-form-control text-input" id="contactno" name="contactno" required="required" value="<?php echo $row['contactno'];?>"  maxlength="10">
 					  </div>
-					  <button type="submit" name="update" class="btn-upper btn btn-primary checkout-page-button">Update</button>
+					  <button type="submit" name="update" class="btn-upper btn btn-primary checkout-page-button">Mise à jour</button>
 					</form>
 					<?php } ?>
 				</div>	
@@ -201,8 +191,9 @@ while($row=mysqli_fetch_array($query))
 						    <div class="panel-heading">
 						      <h4 class="unicase-checkout-title">
 						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseTwo">
-						          <span>2</span>Change Password
-						        </a>
+						          <span>2</span>
+                                    Changer le mot de passe
+                                </a>
 						      </h4>
 						    </div>
 						    <div id="collapseTwo" class="panel-collapse collapse">
@@ -210,21 +201,21 @@ while($row=mysqli_fetch_array($query))
 						     
 					<form class="register-form" role="form" method="post" name="chngpwd" onSubmit="return valid();">
 <div class="form-group">
-					    <label class="info-title" for="Current Password">Current Password<span>*</span></label>
+					    <label class="info-title" for="Current Password">Mot de passe actuel<span>*</span></label>
 					    <input type="password" class="form-control unicase-form-control text-input" id="cpass" name="cpass" required="required">
 					  </div>
 
 
 
 						<div class="form-group">
-					    <label class="info-title" for="New Password">New Password <span>*</span></label>
+					    <label class="info-title" for="New Password">Nouveau mot de passe <span>*</span></label>
 			 <input type="password" class="form-control unicase-form-control text-input" id="newpass" name="newpass">
 					  </div>
 					  <div class="form-group">
-					    <label class="info-title" for="Confirm Password">Confirm Password <span>*</span></label>
+					    <label class="info-title" for="Confirm Password">Confirmez le mot de passe <span>*</span></label>
 					    <input type="password" class="form-control unicase-form-control text-input" id="cnfpass" name="cnfpass" required="required" >
 					  </div>
-					  <button type="submit" name="submit" class="btn-upper btn btn-primary checkout-page-button">Change </button>
+					  <button type="submit" name="submit" class="btn-upper btn btn-primary checkout-page-button">Changement </button>
 					</form> 
 
 

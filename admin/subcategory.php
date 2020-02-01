@@ -2,7 +2,7 @@
 <?php
 session_start();
 include('include/config.php');
-if(strlen($_SESSION['alogin'])==0)
+if(!isset($_GET['uname']))
 	{	
 header('location:index.php');
 }
@@ -28,7 +28,7 @@ if(isset($_GET['del']))
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin| SubCategory</title>
+	<title>Admin| Sous-catégorie</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -47,7 +47,7 @@ if(isset($_GET['del']))
 
 						<div class="module">
 							<div class="module-head">
-								<h3>Sub Category</h3>
+								<h3>Sous-catégorie</h3>
 							</div>
 							<div class="module-body">
 
@@ -73,7 +73,7 @@ if(isset($_GET['del']))
 			<form class="form-horizontal row-fluid" name="subcategory" method="post" >
 
 <div class="control-group">
-<label class="control-label" for="basicinput">Category</label>
+<label class="control-label" for="basicinput">Catégorie</label>
 <div class="controls">
 <select name="category" class="span8 tip" required>
 <option value="">Select Category</option> 
@@ -89,9 +89,9 @@ while($row=mysqli_fetch_array($query))
 
 									
 <div class="control-group">
-<label class="control-label" for="basicinput">SubCategory Name</label>
+<label class="control-label" for="basicinput">Nom de la sous-catégorie</label>
 <div class="controls">
-<input type="text" placeholder="Enter SubCategory Name"  name="subcategory" class="span8 tip" required>
+<input type="text" placeholder="Entrez le nom de la sous-catégorie"  name="subcategory" class="span8 tip" required>
 </div>
 </div>
 
@@ -99,7 +99,7 @@ while($row=mysqli_fetch_array($query))
 
 	<div class="control-group">
 											<div class="controls">
-												<button type="submit" name="submit" class="btn">Create</button>
+												<button type="submit" name="submit" class="btn">Créer</button>
 											</div>
 										</div>
 									</form>
@@ -109,17 +109,17 @@ while($row=mysqli_fetch_array($query))
 
 	<div class="module">
 							<div class="module-head">
-								<h3>Sub Category</h3>
+								<h3>Sous-catégorie</h3>
 							</div>
 							<div class="module-body table">
 								<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
 									<thead>
 										<tr>
 											<th>#</th>
-											<th>Category</th>
-											<th>Description</th>
-											<th>Creation date</th>
-											<th>Last Updated</th>
+											<th>Catégorie</th>
+											<th>La description</th>
+											<th>Date de création</th>
+											<th>Dernière mise à jour</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -137,8 +137,8 @@ while($row=mysqli_fetch_array($query))
 											<td> <?php echo htmlentities($row['creationDate']);?></td>
 											<td><?php echo htmlentities($row['updationDate']);?></td>
 											<td>
-											<a href="edit-subcategory.php?id=<?php echo $row['id']?>" ><i class="icon-edit"></i></a>
-											<a href="subcategory.php?id=<?php echo $row['id']?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign"></i></a></td>
+											<a href="edit-subcategory.php?uname=<?php echo $uname; ?>&id=<?php echo $row['id']?>" ><i class="icon-edit"></i></a>
+											<a href="subcategory.php?uname=<?php echo $uname; ?>&id=<?php echo $row['id']?>&del=delete" onClick="return confirm('\n'+'Etes-vous sûr que vous voulez supprimer?')"><i class="icon-remove-sign"></i></a></td>
 										</tr>
 										<?php $cnt=$cnt+1; } ?>
 										

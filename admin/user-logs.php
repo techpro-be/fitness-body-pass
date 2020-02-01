@@ -2,7 +2,7 @@
 <?php
 session_start();
 include('include/config.php');
-if(strlen($_SESSION['alogin'])==0)
+if(!isset($_GET['uname']))
 	{	
 header('location:index.php');
 }
@@ -33,7 +33,7 @@ else{
 
 	<div class="module">
 							<div class="module-head">
-								<h3>Manage Users</h3>
+								<h3>Gérer les utilisateurs</h3>
 							</div>
 							<div class="module-body table">
 	
@@ -42,11 +42,11 @@ else{
 									<thead>
 										<tr>
 											<th>#</th>
-											<th> User Email</th>
-											<th>User IP </th>
-											<th>Login Time</th>
-											<th>Logout Time </th>
-											<th>Status </th>
+											<th>Courriel de l'utilisateur</th>
+											<th>IP Utilisateur </th>
+											<th>Temps de connexion</th>
+											<th>Heure de déconnexion </th>
+											<th>Statut </th>
 											
 										</tr>
 									</thead>
@@ -67,11 +67,11 @@ while($row=mysqli_fetch_array($query))
 
 if($st==1)
 {
-	echo "Successfull";
+	echo "Succès";
 }
 else
 {
-	echo "Failed";
+	echo "Échoué";
 }
 										 ?></td>
 											

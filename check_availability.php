@@ -7,11 +7,11 @@ if(!empty($_POST["email"])) {
 		$count=mysqli_num_rows($result);
 if($count>0)
 {
-echo "<span style='color:red'> Email already exists .</span>";
+echo "<span style='color:red'> l'email existe déjà .</span>";
  echo "<script>$('#submit').prop('disabled',true);</script>";
 } else{
 	
-	echo "<span style='color:green'> Email available for Registration .</span>";
+	echo "<span style='color:green'>Courriel disponible pour l'inscription .</span>";
  echo "<script>$('#submit').prop('disabled',false);</script>";
 }
 }

@@ -1,0 +1,16 @@
+ 1- checkavailability.php - Checks if email for registration is good to use 
+2- configuration.php - Has the stripe keys
+3- DBcontroller.php - makes the connection with the database
+4- forgotpassword.php - makes you change your password
+5- js and css - from the html/css/javascript template (market app)
+6- js1 css1 - from the fitness template
+7- index.php - main page- first loaded- has all the fitness template into it. Has the products in #packages section
+8- login.php - login and register page. divided in two col-6
+9- logout.php - login session, updates the userlog in the DB
+10- my-account.php - my account page, where you can change your password and other stuff. Also has a sidebar, containing news, order history, my account, where are stored in myaccount-sidebar.php ( inside includes folder)
+11- mycart.php  - page you get redirected after clicking add to cart on index.php. Has the product, and you can edit it and proceed to checkout if you want.
+12 - order history.php - shows you oredered items. 
+13 - payment-method.php - Page where you make the payment.
+14 - StripePayment.php - Where you set the apikey, create a costumer + subscription
+
+

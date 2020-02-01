@@ -5,8 +5,8 @@
 					<i class="icon-reorder shaded"></i>
 				</a>
 
-			  	<a class="brand" href="index.html">
-			  		Shopping Portal | Admin
+			  	<a class="brand" href="http://fitbodypass.fr">
+			  		FitBodyPass | Admin
 			  	</a>
 
 				<div class="nav-collapse collapse navbar-inverse-collapse">
@@ -20,9 +20,9 @@
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="change-password.php">Change Password</a></li>
+								<li><a href="change-password.php">Changer le mot de passe</a></li>
 								<li class="divider"></li>
-								<li><a href="logout.php">Logout</a></li>
+								<li><a href="logout.php">Se déconnecter</a></li>
 							</ul>
 						</li>
 					</ul>

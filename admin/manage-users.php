@@ -2,18 +2,18 @@
 <?php
 session_start();
 include('include/config.php');
-if(strlen($_SESSION['alogin'])==0)
+if(!isset($_GET['uname']))
 	{	
 header('location:index.php');
 }
 else{
-date_default_timezone_set('Asia/Kolkata');// change according timezone
+date_default_timezone_set('Europe/Malta');// change according timezone
 $currentTime = date( 'd-m-Y h:i:s A', time () );
 
 if(isset($_GET['del']))
 		  {
-		          mysqli_query($con,"delete from products where id = '".$_GET['id']."'");
-                  $_SESSION['delmsg']="Product deleted !!";
+		          mysqli_query($con,"delete from users where id = '".$_GET['id']."'");
+                  $_SESSION['delmsg']="Utilisateur supprimé!!";
 		  }
 
 ?>
@@ -22,7 +22,7 @@ if(isset($_GET['del']))
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin| Manage Users</title>
+	<title>Admin| Gérer les utilisateurs</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -41,7 +41,7 @@ if(isset($_GET['del']))
 
 	<div class="module">
 							<div class="module-head">
-								<h3>Manage Users</h3>
+								<h3>Gérer les utilisateurs</h3>
 							</div>
 							<div class="module-body table">
 	<?php if(isset($_GET['del']))
@@ -59,12 +59,10 @@ if(isset($_GET['del']))
 									<thead>
 										<tr>
 											<th>#</th>
-											<th> Name</th>
+											<th>Nom</th>
 											<th>Email </th>
-											<th>Contact no</th>
-											<th>Shippping Address/City/State/Pincode </th>
-											<th>Billing Address/City/State/Pincode </th>
-											<th>Reg. Date </th>
+											<th>Numéro de contact</th>
+											<th>Date d'enregistrement</th>
 										
 										</tr>
 									</thead>
@@ -80,9 +78,11 @@ while($row=mysqli_fetch_array($query))
 											<td><?php echo htmlentities($row['name']);?></td>
 											<td><?php echo htmlentities($row['email']);?></td>
 											<td> <?php echo htmlentities($row['contactno']);?></td>
-											<td><?php echo htmlentities($row['shippingAddress'].",".$row['shippingCity'].",".$row['shippingState']."-".$row['shippingPincode']);?></td>
-											<td><?php echo htmlentities($row['billingAddress'].",".$row['billingCity'].",".$row['billingState']."-".$row['billingPincode']);?></td>
 											<td><?php echo htmlentities($row['regDate']);?></td>
+                                            <td>
+<!--                                                <a href="edit-users.php?uname=--><?php //echo $uname; ?><!--&id=--><?php //echo $row['id']?><!--" ><i class="icon-edit"></i></a>-->
+                                                <a href="manage-users.php?uname=<?php echo $uname; ?>&id=<?php echo $row['id']?>&del=delete" onClick="return confirm('\n'+'Etes-vous sûr que vous voulez supprimer?')"><i class="icon-remove-sign"></i></a>
+                                            </td>
 											
 										<?php $cnt=$cnt+1; } ?>
 										

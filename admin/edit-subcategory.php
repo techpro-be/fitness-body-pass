@@ -2,7 +2,7 @@
 <?php
 session_start();
 include('include/config.php');
-if(strlen($_SESSION['alogin'])==0)
+if(!isset($_GET['uname']))
 	{	
 header('location:index.php');
 }
@@ -17,7 +17,7 @@ if(isset($_POST['submit']))
 	$subcat=$_POST['subcategory'];
 	$id=intval($_GET['id']);
 $sql=mysqli_query($con,"update subcategory set categoryid='$category',subcategory='$subcat',updationDate='$currentTime' where id='$id'");
-$_SESSION['msg']="Sub-Category Updated !!";
+$_SESSION['msg']="Sous-catégorie mise à jour !!";  //Sub-Category Updated
 
 }
 
@@ -27,7 +27,7 @@ $_SESSION['msg']="Sub-Category Updated !!";
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin| Edit SubCategory</title>
+	<title>Admin| Modifier la sous-catégorie</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -46,7 +46,7 @@ $_SESSION['msg']="Sub-Category Updated !!";
 
 						<div class="module">
 							<div class="module-head">
-								<h3>Edit SubCategory</h3>
+								<h3>Modifier la sous-catégorie</h3>
 							</div>
 							<div class="module-body">
 
@@ -54,7 +54,7 @@ $_SESSION['msg']="Sub-Category Updated !!";
 {?>
 									<div class="alert alert-success">
 										<button type="button" class="close" data-dismiss="alert">×</button>
-									<strong>Well done!</strong>	<?php echo htmlentities($_SESSION['msg']);?><?php echo htmlentities($_SESSION['msg']="");?>
+									<strong>Bien joué!</strong>	<?php echo htmlentities($_SESSION['msg']);?><?php echo htmlentities($_SESSION['msg']="");?>
 									</div>
 <?php } ?>
 
@@ -70,7 +70,7 @@ while($row=mysqli_fetch_array($query))
 ?>		
 
 <div class="control-group">
-<label class="control-label" for="basicinput">Category</label>
+<label class="control-label" for="basicinput">Catégorie</label>
 <div class="controls">
 <select name="category" class="span8 tip" required>
 <option value="<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($catname=$row['categoryName']);?></option>
@@ -94,9 +94,9 @@ else{
 
 
 <div class="control-group">
-<label class="control-label" for="basicinput">SubCategory Name</label>
+<label class="control-label" for="basicinput">Nom de la sous-catégorie</label>
 <div class="controls">
-<input type="text" placeholder="Enter category Name"  name="subcategory" value="<?php echo  htmlentities($row['subcategory']);?>" class="span8 tip" required>
+<input type="text" placeholder="Entrez le nom de la catégorie"  name="subcategory" value="<?php echo  htmlentities($row['subcategory']);?>" class="span8 tip" required>
 </div>
 </div>
 
@@ -105,7 +105,7 @@ else{
 
 	<div class="control-group">
 											<div class="controls">
-												<button type="submit" name="submit" class="btn">Update</button>
+												<button type="submit" name="submit" class="btn">Mise à jour</button>
 											</div>
 										</div>
 									</form>
